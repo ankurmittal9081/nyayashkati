@@ -1,0 +1,15 @@
+{
+  "name": "nyayashkati_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "adduser.js",
+  "type": "module",
+  "scripts": {
+    "start": "node adduser.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "mongoose": "^8.0.0"
+  }
+}
