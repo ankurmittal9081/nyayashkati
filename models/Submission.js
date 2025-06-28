@@ -8,7 +8,8 @@ const submissionSchema = new mongoose.Schema({
     enum: ['not_submitted', 'submitted', 'under_review', 'accepted', 'rejected'],
     default: 'not_submitted'
   },
-  submissionDate: { type: Date }
+  submissionDate: { type: Date },
+  isDeleted: { type: Boolean, default: false }
 }, { timestamps: true });
 
 export default mongoose.model('Submission', submissionSchema);

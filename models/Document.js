@@ -10,7 +10,8 @@ const documentSchema = new mongoose.Schema({
     enum: ['not_submitted', 'submitted', 'accepted', 'rejected'],
     default: 'not_submitted'
   },
-  uploadedBy: { type: String, default: 'System' }
+  uploadedBy: { type: String, default: 'System' },
+  isDeleted: { type: Boolean, default: false }
 }, { timestamps: true });
 
 export default mongoose.model('Document', documentSchema);
