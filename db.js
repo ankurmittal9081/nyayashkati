@@ -1,16 +1,17 @@
-/*const mongoose = require("mongoose");
+import dotenv from 'dotenv';
+import path from 'path';
+dotenv.config({ path: path.resolve('../.env') });
 
-mongoose.connect("mongodb://localhost:27017/nyayasaathi", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  console.log("MongoDB connected successfully.");
-}).catch(err => {
-  console.error("MongoDB connection error:", err);
-});*/
+
 import mongoose from 'mongoose';
-mongoose.connect('mongodb://localhost:27017/nyayasaathi', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB error:', err));
+
+const MONGO_URL = process.env.MONGO_URL;
+
+if (!MONGO_URL) {
+    console.error("❌ MONGO_URI is undefined. Check your .env file.");
+    process.exit(1);
+}
+
+mongoose.connect(MONGO_URL)
+  .then(() => console.log('✅ Connected to MongoDB'))
+  .catch(err => console.error('❌ MongoDB connection error:', err));

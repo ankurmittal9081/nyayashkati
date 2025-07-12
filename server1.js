@@ -23,9 +23,8 @@ import authMiddleware from './middleware/authMiddleware.js';
 
 const app = express();
 const PORT = process.env.PORT || 5001;
-const MONGO_URL = process.env.MONGO_URL;
+const MONGO_URL = process.env.MONGO_URL;  
 
-console.log('MONGO_URL:', MONGO_URL);
 
 // ✅ Proper CORS Setup for Frontend on localhost:3000
 app.use(cors({

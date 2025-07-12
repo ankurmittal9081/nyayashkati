@@ -1,13 +1,14 @@
-import '../db.js';
+import '../db.js'; // Make sure path is correct
 import User from '../models/User.js';
 import Admin from '../models/Admin.js';
+
 
 const run = async () => {
     try {
         const user = await User.create({
             fullName: 'Deepak Sharma',
-            aadhaarNumber: '999988887779',
-            email: 'deepak.admin1@example.com',
+            aadhaarNumber: '999988887778',
+            email: 'deepak.admin2@example.com',
             password: 'securePassword123',  // Plain password; gets hashed in pre-save
             role: 'admin',
             isDeleted: false

@@ -5,18 +5,22 @@ import authMiddleware from './auth/authMiddleware.js';
 
 const router = Router();
 
-// ✅ Add New Admin - Protected, only authenticated user can add
-router.post('/create', authMiddleware, async (req, res) => {
+// Middleware applied to all routes in this router
+router.use(authMiddleware);
+
+// ✅ Route 1: Add New Admin
+router.post('/create', async (req, res) => {
   try {
-    const admin = await Admin.create({ ...req.body, isDeleted: false });
-    res.status(201).json(admin);
+    const adminData = { ...req.body, isDeleted: false };
+    const newAdmin = await Admin.create(adminData);
+    res.status(201).json(newAdmin);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// ✅ Get All Active Admins - Protected
-router.get('/list', authMiddleware, async (req, res) => {
+// ✅ Route 2: Get All Active Admins
+router.get('/list', async (req, res) => {
   try {
     const admins = await Admin.find({ isDeleted: false }).populate('user');
     res.json(admins);
@@ -25,16 +29,16 @@ router.get('/list', authMiddleware, async (req, res) => {
   }
 });
 
-// ✅ Soft Delete Admin by ID - Protected
-router.delete('/delete/:id', authMiddleware, async (req, res) => {
+// ✅ Route 3: Soft Delete Admin by ID
+router.delete('/delete/:id', async (req, res) => {
   try {
-    const admin = await softDeleteById(Admin, req.params.id);
+    const deletedAdmin = await softDeleteById(Admin, req.params.id);
 
-    if (!admin) {
+    if (!deletedAdmin) {
       return res.status(404).json({ error: 'Admin not found or already deleted' });
     }
 
-    res.json({ message: 'Admin soft-deleted successfully', admin });
+    res.json({ message: 'Admin soft-deleted successfully', admin: deletedAdmin });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
